@@ -4,46 +4,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="index.css">
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
     <script src="index.js" defer></script>
+    <script src="stars.js" defer></script>
     <title>Portfollio</title>
 </head>
 
 <body>
-    <div class="page1">
+    <div class="page1" id="home">
         <nav>
-            <a href="#hero" class="nav-logo">smith<span>.dev</span></a>
+            <a href="#" id="theme-toggle" class="nav-icon-link" aria-label="Toggle theme">
+                <svg id="theme-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111"
+                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5" fill="#111" />
+                    <ellipse cx="12" cy="12" rx="11" ry="3" transform="rotate(-20 12 12)" />
+                </svg>
+            </a>
             <ul class="nav-links">
-                <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#about">About & Skills</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Me</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+            <a href="mailto:ihyaet@gmail.com" class="nav-email-link">Let's Get Connected</a>
         </nav>
         <div class="container1">
             <div class="hero">
                 <p class="role">— Full-Stack Developer </p>
                 <h1>
                     <span class="name-hi">Hi, I'm</span><br>
-                    <span class="name-smith">Smith<span style="color:rgba(255, 140, 30, 0.45)">.</span></span>
+                    <span class="name-smith">Smith<span class="accent-dot">.</span></span>
                 </h1>
                 <p class="tagline">I craft fast, clean web experiences<br>from idea to deployment.</p>
             </div>
             <img class="hero-img" src="img5.png">
         </div>
     </div>
-    <div class="page2">
+    <div class="page2" id="about">
         <div class="about">
-            <p class="section-label">— About Me</p>
-            <h2>CS Student &<br><span class="accent">Aspiring Developer</span></h2>
-            <p class="about-bio">
+            <p class="section-label reveal-up">— About Me</p>
+            <h2 class="reveal-up">CS Student &<br><span class="accent">Aspiring Developer</span></h2>
+            <p class="about-bio reveal-up">
                 I'm a Computer Science student at the University of Ghana, Legon,
                 passionate about building things for the web. I work with Python,
                 JavaScript, SQL, HTML, and CSS — and I'm always looking to sharpen
                 my skills and take on new challenges.
             </p>
-            <p class="about-bio">
+            <p class="about-bio reveal-up">
                 I'm currently open to internships, freelance work, and any opportunity
                 where I can contribute, learn, and grow as a developer. If you have
                 something worth building, let's talk.
@@ -58,19 +70,20 @@
                 <div class="conveyor-item" style="--i:4"><span>SQL</span></div>
                 <div class="conveyor-item" style="--i:5"><span>React</span></div>
                 <div class="conveyor-item" style="--i:6"><span>Git</span></div>
+                <div class="conveyor-item" style="--i:7"><span>TypeScript</span></div>
             </div>
         </div>
     </div>
-    <div class="page3">
-        <div class="projects-section">
+    <div class="page3" id="projects">
+        <div class="projects-section reveal-up">
             <div>
                 <p class="section-label">— My Work</p>
                 <h2>Projects<span class="accent">.</span></h2>
             </div>
         </div>
-        <div class="panels-container">
+        <div class="panels-container reveal-up">
             <div class="panel active">
-                <div class="panel-bg" style="background: linear-gradient(135deg, #1a1a2e, #16213e)"></div>
+                <div class="panel-bg" style="background-image: url('endasmu.png')"></div>
                 <div class="panel-content">
                     <span class="panel-num">01</span>
                     <h3>EnDasmu</h3>
@@ -79,16 +92,16 @@
                 </div>
             </div>
             <div class="panel">
-                <div class="panel-bg" style="background: linear-gradient(135deg, #0d1b2a, #1b263b)"></div>
+                <div class="panel-bg" style="background-image: url('to-do.png')"></div>
                 <div class="panel-content">
                     <span class="panel-num">02</span>
-                    <h3>Todo App</h3>
+                    <h3>To-do list</h3>
                     <p>Clean task management app built with vanilla JavaScript.</p>
                     <a href="#" class="panel-link">View Project ↗</a>
                 </div>
             </div>
             <div class="panel">
-                <div class="panel-bg" style="background: linear-gradient(135deg, #0a1628, #0d2137)"></div>
+                <div class="panel-bg" style="background-image: url('pixelpledge.png')"></div>
                 <div class="panel-content">
                     <span class="panel-num">03</span>
                     <h3>Pixel Pledge</h3>
@@ -97,18 +110,27 @@
                 </div>
             </div>
             <div class="panel">
-                <div class="panel-bg" style="background: linear-gradient(135deg, #1a0a2e, #2d1b4e)"></div>
+                <div class="panel-bg" style="background-image: url('web3.png')"></div>
                 <div class="panel-content">
                     <span class="panel-num">04</span>
+                    <h3>WEB3</h3>
+                    <p>Something coming soon.</p>
+                    <a href="#" class="panel-link">View Project ↗</a>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-bg" style="background-image: url('img1.jpg')"></div>
+                <div class="panel-content">
+                    <span class="panel-num">05</span>
                     <h3>Landing Pages</h3>
                     <p>Collection of responsive landing pages with modern UI designs.</p>
                     <a href="#" class="panel-link">View Project ↗</a>
                 </div>
             </div>
             <div class="panel">
-                <div class="panel-bg" style="background: linear-gradient(135deg, #0a1628, #0d2137)"></div>
+                <div class="panel-bg" style="background-image: url('img3.jpg')"></div>
                 <div class="panel-content">
-                    <span class="panel-num">05</span>
+                    <span class="panel-num">06</span>
                     <h3>Next Project</h3>
                     <p>Something coming soon.</p>
                     <a href="#" class="panel-link">View Project ↗</a>
@@ -116,15 +138,15 @@
             </div>
         </div>
     </div>
-    <div class="page4">
+    <div class="page4" id="contact">
         <h1 class="contact-bg-text">CONTACT</h1>
         <div class="contact-wrapper">
             <!-- LEFT -->
             <div class="contact-left">
-                <h2>Get in touch</h2>
-                <p class="contact-sub">Have a project in mind or looking for a developer? Let's talk.</p>
+                <h2 class="reveal-up">Get in touch</h2>
+                <p class="contact-sub reveal-up">Have a project in mind or looking for a developer? Let's talk.</p>
 
-                <div class="contact-cards">
+                <div class="contact-cards reveal-up">
                     <a href="mailto:nanasmith@gmail.com" class="contact-card">
                         <div class="card-icon">
                             <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"
@@ -171,7 +193,7 @@
             </div>
 
             <!-- RIGHT -->
-            <div class="contact-right">
+            <div class="contact-right reveal-up">
                 <input type="text" placeholder="Name" class="contact-input">
                 <input type="email" placeholder="Email" class="contact-input">
                 <textarea placeholder="Message" class="contact-textarea"></textarea>

@@ -13,9 +13,33 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     requestAnimationFrame(raf);
 
+    // Handle anchor links for Lenis
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            lenis.scrollTo(this.getAttribute('href'));
+        });
+    });
+
+    // Nav Hide/Show on Scroll
+    const nav = document.querySelector('nav');
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > lastScrollY && window.scrollY > 50) {
+            // Scrolling down
+            nav.classList.add('nav-hidden');
+        } else {
+            // Scrolling up
+            nav.classList.remove('nav-hidden');
+        }
+        lastScrollY = window.scrollY;
+    });
+
     // Panels
     const panels = document.querySelectorAll('.panel');
     let current = 0;
+    let autoPlayInterval;
 
     function goTo(index) {
         panels.forEach(p => p.classList.remove('active'));
@@ -23,18 +47,89 @@ window.addEventListener('DOMContentLoaded', () => {
         current = index;
     }
 
+    function startAutoPlay() {
+        autoPlayInterval = setInterval(() => {
+            goTo((current + 1) % panels.length);
+        }, 3500); // changes every 3.5 seconds
+    }
+
+    function resetAutoPlay() {
+        clearInterval(autoPlayInterval);
+        startAutoPlay();
+    }
+
     // click to expand
     panels.forEach((panel, i) => {
-        panel.addEventListener('click', () => goTo(i));
+        panel.addEventListener('click', () => {
+            goTo(i);
+            resetAutoPlay();
+        });
     });
 
-    // buttons
-    document.getElementById('nextBtn').addEventListener('click', () => {
-        goTo((current + 1) % panels.length);
+    // Start automatic rotation
+    startAutoPlay();
+
+    // optional buttons (if added later)
+    const nextBtn = document.getElementById('nextBtn');
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            goTo((current + 1) % panels.length);
+            resetAutoPlay();
+        });
+    }
+
+    const prevBtn = document.getElementById('prevBtn');
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            goTo((current - 1 + panels.length) % panels.length);
+            resetAutoPlay();
+        });
+    }
+
+    // Scroll reveal observer
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
     });
 
-    document.getElementById('prevBtn').addEventListener('click', () => {
-        goTo((current - 1 + panels.length) % panels.length);
-    });
+    document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
 
+    // Theme Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    
+    const darkIconHTML = `
+        <circle cx="12" cy="12" r="5" fill="#111" />
+        <ellipse cx="12" cy="12" rx="11" ry="3" transform="rotate(-20 12 12)" />
+    `;
+    const lightIconHTML = `
+        <circle cx="12" cy="12" r="5" fill="#111" />
+        <line x1="12" y1="1" x2="12" y2="3" />
+        <line x1="12" y1="21" x2="12" y2="23" />
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+        <line x1="1" y1="12" x2="3" y2="12" />
+        <line x1="21" y1="12" x2="23" y2="12" />
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+    `;
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.body.classList.toggle('light-theme');
+            
+            if (document.body.classList.contains('light-theme')) {
+                themeIcon.innerHTML = lightIconHTML;
+            } else {
+                themeIcon.innerHTML = darkIconHTML;
+            }
+        });
+    }
 });
