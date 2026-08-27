@@ -32,8 +32,9 @@ for (let i = 0; i < 200; i++) {
 function animate() {
     ctx.clearRect(0, 0, width, height);
     
-    // Draw background particles
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+    // Draw background particles (black in light mode, white in dark mode)
+    const isLight = document.body.classList.contains('light-theme');
+    ctx.fillStyle = isLight ? 'rgba(0, 0, 0, 0.45)' : 'rgba(255, 255, 255, 0.4)';
     for (let p of particles) {
         p.x += p.speedX;
         p.y += p.speedY;

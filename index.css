@@ -830,12 +830,12 @@ body.light-theme .nav-email-link:hover {
 
 /* ---------- PAGE 1 — HERO ---------- */
 body.light-theme .page1 {
-    background: linear-gradient(150deg, #faf7f2 0%, #f0ebe0 40%, #ede4d4 100%);
+    background: #ffffff;
     color: #1c1917;
 }
 
 body.light-theme .page1::before {
-    background: radial-gradient(circle, rgba(191, 96, 64, 0.22) 0%, rgba(191, 96, 64, 0.06) 50%, transparent 70%);
+    background: radial-gradient(circle, rgba(191, 96, 64, 0.12) 0%, rgba(191, 96, 64, 0.03) 50%, transparent 70%);
 }
 
 body.light-theme .role {
