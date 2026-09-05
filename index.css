@@ -1335,6 +1335,15 @@ body.light-theme .form-status.error {
         top: 14px;
         width: calc(100% - 28px);
         padding: 6px 8px 6px 14px;
+        transform: translateX(-50%) !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+
+    nav.nav-hidden {
+        transform: translateX(-50%) !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
     }
 
     body.light-theme nav {

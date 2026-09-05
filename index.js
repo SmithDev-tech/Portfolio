@@ -73,11 +73,17 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Nav Hide/Show on Scroll (synced directly with Lenis scroll stream)
+    // Nav Hide/Show on Scroll (desktop only - permanently persistent on mobile/responsive view)
     const nav = document.querySelector('nav');
     let lastScrollY = 0;
 
     lenis.on('scroll', ({ scroll }) => {
+        // Do not hide navbar on mobile/responsive view
+        if (window.innerWidth <= 768) {
+            if (nav) nav.classList.remove('nav-hidden');
+            return;
+        }
+
         if (navMenu && navMenu.classList.contains('is-open')) {
             return; // keep visible while mobile menu is open
         }
