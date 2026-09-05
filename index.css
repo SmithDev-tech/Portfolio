@@ -1,10 +1,13 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-html, body {
+html,
+body {
     max-width: 100%;
     overflow-x: hidden;
     padding: 0;
@@ -13,7 +16,8 @@ html, body {
 }
 
 /* Lenis smooth scroll optimization */
-html.lenis, html.lenis body {
+html.lenis,
+html.lenis body {
     height: auto;
 }
 
@@ -1165,6 +1169,7 @@ body.light-theme .form-status.error {
 
 /* --- TABLET & BELOW (<= 960px) --- */
 @media (max-width: 960px) {
+
     /* Page 1 - Hero */
     .container1 {
         flex-direction: column-reverse;
@@ -1264,6 +1269,12 @@ body.light-theme .form-status.error {
         padding: 6px 8px 6px 14px;
     }
 
+    body.light-theme nav {
+        background: #f4f4f6;
+        border: 1px solid rgba(28, 25, 23, 0.12);
+        box-shadow: 0 8px 30px rgba(28, 25, 23, 0.08);
+    }
+
     .mobile-toggle {
         display: flex;
         flex-direction: column;
@@ -1304,30 +1315,53 @@ body.light-theme .form-status.error {
         transform: translateY(-7px) rotate(-45deg);
     }
 
+    body.light-theme .mobile-toggle {
+        background: rgba(28, 25, 23, 0.06);
+        border: 1px solid rgba(28, 25, 23, 0.12);
+    }
+
+    body.light-theme .mobile-toggle:hover {
+        background: rgba(28, 25, 23, 0.1);
+    }
+
+    body.light-theme .hamburger-bar {
+        background: #1c1917;
+    }
+
     .nav-menu-wrapper {
         position: absolute;
         top: calc(100% + 10px);
         left: 0;
         right: 0;
-        background: rgba(10, 10, 10, 0.96);
-        backdrop-filter: blur(24px) saturate(180%);
-        -webkit-backdrop-filter: blur(24px) saturate(180%);
-        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: #0d0d0d;
+        border: 1px solid rgba(255, 255, 255, 0.14);
         border-radius: 24px;
         padding: 24px 20px;
         flex-direction: column;
         gap: 18px;
-        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.7);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
         opacity: 0;
         visibility: hidden;
         transform: translateY(-8px);
         transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s;
+        z-index: 300;
     }
 
     body.light-theme .nav-menu-wrapper {
-        background: rgba(250, 247, 242, 0.96);
-        border: 1px solid rgba(191, 96, 64, 0.18);
-        box-shadow: 0 20px 48px rgba(92, 61, 143, 0.14), 0 4px 12px rgba(28, 25, 23, 0.08);
+        background: #f4f4f6; /* White ash solid background */
+        border: 1px solid rgba(28, 25, 23, 0.12);
+        box-shadow: 0 24px 60px rgba(28, 25, 23, 0.16), 0 4px 16px rgba(28, 25, 23, 0.08);
+    }
+
+    body.light-theme .nav-links a,
+    body.light-theme .nav-link-item {
+        color: #1c1917;
+        font-weight: 600;
+    }
+
+    body.light-theme .nav-links a:hover,
+    body.light-theme .nav-link-item:hover {
+        color: #bf6040;
     }
 
     .nav-menu-wrapper.is-open {
@@ -1441,7 +1475,8 @@ body.light-theme .form-status.error {
 
     .contact-input,
     .contact-textarea {
-        font-size: 16px; /* iOS zoom prevention */
+        font-size: 16px;
+        /* iOS zoom prevention */
         padding: 14px 18px;
     }
 
@@ -1532,37 +1567,12 @@ body.light-theme .form-status.error {
     }
 }
 
-/* --- LIGHT THEME RESPONSIVE ENHANCEMENTS --- */
-body.light-theme .mobile-toggle {
-    background: rgba(28, 25, 23, 0.06);
-    border-color: rgba(191, 96, 64, 0.2);
-}
-
-body.light-theme .mobile-toggle:hover {
-    background: rgba(28, 25, 23, 0.12);
-}
-
-body.light-theme .hamburger-bar {
-    background: #1c1917;
-}
-
-body.light-theme .nav-menu-wrapper {
-    background: transparent;
-    border: none;
-    box-shadow: none;
-}
-
-body.light-theme .nav-link-item {
-    color: #6b6560;
-}
-
-body.light-theme .nav-link-item:hover {
-    color: #1c1917;
-}
-
 /* --- ACCESSIBILITY & PREFERENCES --- */
 @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+
+    *,
+    *::before,
+    *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
