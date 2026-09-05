@@ -1218,46 +1218,114 @@ body.light-theme .form-status.error {
     .about {
         max-width: 100%;
         padding: 0;
-        margin-bottom: 40px;
+        margin-bottom: 8px;
         text-align: left;
     }
 
+    .about-bio {
+        margin-bottom: 12px;
+    }
+
     .skills-conveyor {
-        width: 100%;
-        height: auto;
-        margin: 0;
+        position: relative;
+        width: calc(100% + 56px);
+        margin: 0 -28px;
+        max-width: none;
+        height: 160px;
         transform: none;
+        overflow: hidden;
         display: flex;
         justify-content: center;
+        align-items: flex-start;
     }
 
     .conveyor-track {
-        position: relative;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
-        max-width: 480px;
+        height: 100%;
     }
 
     .conveyor-item {
-        position: relative;
-        top: auto;
-        left: auto;
-        margin: 0;
-        width: auto;
-        height: auto;
-        animation: none;
+        position: absolute;
+        top: -60px;
+        left: 50%;
+        width: 60px;
+        height: 60px;
+        margin: -30px 0 0 -30px;
+        animation: mobileArcSwing 9s linear infinite;
+        animation-delay: calc(var(--i) * -1.125s);
     }
 
     .conveyor-item span {
-        width: auto;
-        height: auto;
-        border-radius: 30px;
-        padding: 10px 20px;
-        font-size: 13px;
-        animation: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(245, 197, 24, 0.25);
+        color: #fff;
+        font-size: 10.5px;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        animation: mobileCounterArcSwing 9s linear infinite;
+        animation-delay: calc(var(--i) * -1.125s);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    }
+}
+
+@keyframes mobileArcSwing {
+    0% {
+        transform: rotate(86deg) translateY(210px);
+        opacity: 0;
+    }
+    5% {
+        opacity: 1;
+    }
+    95% {
+        opacity: 1;
+    }
+    100% {
+        transform: rotate(-86deg) translateY(210px);
+        opacity: 0;
+    }
+}
+
+@keyframes mobileCounterArcSwing {
+    0% {
+        transform: rotate(-86deg);
+    }
+    100% {
+        transform: rotate(86deg);
+    }
+}
+
+@keyframes mobileArcSwingSmall {
+    0% {
+        transform: rotate(84deg) translateY(175px);
+        opacity: 0;
+    }
+    5% {
+        opacity: 1;
+    }
+    95% {
+        opacity: 1;
+    }
+    100% {
+        transform: rotate(-84deg) translateY(175px);
+        opacity: 0;
+    }
+}
+
+@keyframes mobileCounterArcSwingSmall {
+    0% {
+        transform: rotate(-84deg);
+    }
+    100% {
+        transform: rotate(84deg);
     }
 }
 
@@ -1506,25 +1574,33 @@ body.light-theme .form-status.error {
     }
 
     .page2 {
-        padding: 80px 18px 50px;
+        padding: 70px 18px 40px;
     }
 
-    .about h2 {
-        font-size: clamp(30px, 8vw, 42px);
+    .about {
+        margin-bottom: 6px;
     }
 
-    .about-bio {
-        font-size: 14px;
-        line-height: 1.7;
+    .skills-conveyor {
+        width: calc(100% + 36px);
+        margin: 0 -18px;
+        height: 140px;
+        max-width: none;
     }
 
-    .conveyor-track {
-        gap: 8px;
+    .conveyor-item {
+        top: -50px;
+        width: 50px;
+        height: 50px;
+        margin: -25px 0 0 -25px;
+        animation-name: mobileArcSwingSmall;
     }
 
     .conveyor-item span {
-        padding: 8px 16px;
-        font-size: 12px;
+        width: 50px;
+        height: 50px;
+        font-size: 9px;
+        animation-name: mobileCounterArcSwingSmall;
     }
 
     .projects-section h2 {
