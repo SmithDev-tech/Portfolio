@@ -1,10 +1,14 @@
 window.addEventListener('DOMContentLoaded', () => {
 
-    // Lenis smooth scroll
+    // Lenis smooth scroll - tuned for immediate responsiveness without lag
     const lenis = new Lenis({
-        duration: 1.8,
+        duration: 1.0,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
         smoothWheel: true,
+        wheelMultiplier: 1.1,
+        touchMultiplier: 1.5,
     });
 
     function raf(time) {
@@ -16,40 +20,99 @@ window.addEventListener('DOMContentLoaded', () => {
     // Handle anchor links for Lenis
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            lenis.scrollTo(this.getAttribute('href'));
+            const targetId = this.getAttribute('href');
+            if (targetId && targetId !== '#') {
+                e.preventDefault();
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    lenis.scrollTo(targetElement, { offset: -50 });
+                }
+            }
         });
     });
 
-    // Nav Hide/Show on Scroll
-    const nav = document.querySelector('nav');
-    let lastScrollY = window.scrollY;
+    // Mobile Navigation Drawer Toggle
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
 
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > lastScrollY && window.scrollY > 50) {
+    function toggleMobileMenu(forceClose = false) {
+        if (!mobileMenuToggle || !navMenu) return;
+        const isOpen = forceClose ? false : !navMenu.classList.contains('is-open');
+        
+        mobileMenuToggle.classList.toggle('active', isOpen);
+        navMenu.classList.toggle('is-open', isOpen);
+        mobileMenuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    }
+
+    if (mobileMenuToggle && navMenu) {
+        mobileMenuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMobileMenu();
+        });
+
+        // Close when clicking any nav link
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                toggleMobileMenu(true);
+            });
+        });
+
+        // Close on ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navMenu.classList.contains('is-open')) {
+                toggleMobileMenu(true);
+            }
+        });
+
+        // Close when clicking outside navbar
+        document.addEventListener('click', (e) => {
+            const navbar = document.getElementById('navbar');
+            if (navbar && !navbar.contains(e.target) && navMenu.classList.contains('is-open')) {
+                toggleMobileMenu(true);
+            }
+        });
+    }
+
+    // Nav Hide/Show on Scroll (synced directly with Lenis scroll stream)
+    const nav = document.querySelector('nav');
+    let lastScrollY = 0;
+
+    lenis.on('scroll', ({ scroll }) => {
+        if (navMenu && navMenu.classList.contains('is-open')) {
+            return; // keep visible while mobile menu is open
+        }
+        if (scroll > lastScrollY && scroll > 60) {
             // Scrolling down
             nav.classList.add('nav-hidden');
         } else {
             // Scrolling up
             nav.classList.remove('nav-hidden');
         }
-        lastScrollY = window.scrollY;
+        lastScrollY = scroll;
     });
 
     // Panels
     const panels = document.querySelectorAll('.panel');
+    const panelsContainer = document.querySelector('.panels-container');
     let current = 0;
     let autoPlayInterval;
 
-    function goTo(index) {
+    function goTo(index, isUserInteraction = false) {
         panels.forEach(p => p.classList.remove('active'));
-        panels[index].classList.add('active');
-        current = index;
+        if (panels[index]) {
+            panels[index].classList.add('active');
+            current = index;
+            // Only scroll the horizontal container if user manually clicked on mobile
+            if (isUserInteraction && panelsContainer && window.innerWidth <= 850) {
+                const targetLeft = panels[index].offsetLeft - (panelsContainer.offsetWidth / 2) + (panels[index].offsetWidth / 2);
+                panelsContainer.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
+            }
+        }
     }
 
     function startAutoPlay() {
         autoPlayInterval = setInterval(() => {
-            goTo((current + 1) % panels.length);
+            goTo((current + 1) % panels.length, false); // automated advance (no scroll jump)
         }, 3500); // changes every 3.5 seconds
     }
 
@@ -61,7 +124,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // click to expand
     panels.forEach((panel, i) => {
         panel.addEventListener('click', () => {
-            goTo(i);
+            goTo(i, true);
             resetAutoPlay();
         });
     });
